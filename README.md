@@ -21,18 +21,7 @@ Also in this cheat there is a Stat editor for account security, and many other f
 The script will be supplemented, about all the changes will be written here
 
 # New
-## Heist editor:
-
-Cayo Perico Heist
-
-Fleeca Heist
-
-Casino Heist
-
-## Teleport Menu
-
-## CMM Menu
-(Computers Management Menu)
+Casino Pacino was removed from Almenu script
 
 
 
@@ -82,14 +71,15 @@ When editing the Script, please indicate the authors
 
  Casino
  
-![image](https://github.com/Alestarov/YimMenu-lua-script-Alestarov_Menu/assets/108485130/4d1c4e25-d569-4865-a200-700e1fe77311)
+![Снимок экрана 2023-08-01 161835](https://github.com/YimMenu-Lua/Alestarov-Menu/assets/108485130/c5ab6734-ba05-4349-adc4-37deb316c39d)
 
 
 
 
 ## Heist Editor Interface
 
-![image](https://github.com/Alestarov/YimMenu-lua-script-Alestarov_Menu/assets/108485130/58909366-a466-4fde-a771-1344d39b31c3)
+![image](https://github.com/YimMenu-Lua/Alestarov-Menu/assets/108485130/4582fd79-ba48-454f-a7c1-c637d1ff3c7b)
+
 
 Cayo Perico Heist
 
@@ -98,10 +88,6 @@ Cayo Perico Heist
 Fleeca Heist
 
 ![image](https://github.com/Alestarov/YimMenu-lua-script-Alestarov_Menu/assets/108485130/8ee878c3-267a-42ff-b96b-49cf032b7cb9)
-
-Casino Heist
-
-![image](https://github.com/Alestarov/YimMenu-lua-script-Alestarov_Menu/assets/108485130/5ad82976-cb01-4a00-82b3-411f77fa9a20)
 
 ## Stat Editor Interface
 
@@ -146,13 +132,6 @@ https://github.com/xiaoxiao921
 Script on unknowncheats:
 
 https://www.unknowncheats.me/forum/grand-theft-auto-v/591335-yimceo-ceo-crates-method-yimmenu.html
-## 👑 gir489returns 👑
-(The code from the script ''Casino Pacino.lua'' was implemented)
-
-Script on GitHub:
-
-https://github.com/YimMenu-Lua/Casino-Pacino/blob/main/CasinoPacino.lua
-
 
 
 
