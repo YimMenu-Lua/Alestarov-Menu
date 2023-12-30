@@ -1,4 +1,4 @@
-# Alestarov_Menu_V2.1b_1.67
+# Alestarov Menu V3
 ![](https://img.shields.io/badge/dynamic/json?color=ffab00&label=Online%20Version&query=%24.game.online&url=https%3A%2F%2Fraw.githubusercontent.com%2FYimMenu%2FYimMenu%2Fmaster%2Fmetadata.json&style=flat-square&labelColor=000000) ![](https://img.shields.io/badge/dynamic/json?color=ffab00&label=Game%20Build&query=%24.game.build&url=https%3A%2F%2Fraw.githubusercontent.com%2FYimMenu%2FYimMenu%2Fmaster%2Fmetadata.json&style=flat-square&labelColor=000000)
 
  *Code from other scripts can be used in this script. All links to scripts and copyright holders are in the section "Credits"*
@@ -10,7 +10,7 @@
 * [Download Yim Menu](https://github.com/YimMenu/YimMenu)
 
 ## Before using the Script, watch the Video Instruction!
-* [Video Instruction](https://youtu.be/rSr5O3diAwk)
+* [Video Instruction](https://youtu.be/uTL90ga7-DA?si=s14BaDyJc4Lrss4A)
 
 This script was created for the Yim Menu cheat.
 
@@ -21,7 +21,7 @@ Also in this cheat there is a Stat editor for account security, and many other f
 The script will be supplemented, about all the changes will be written here
 
 # New
-Casino Pacino was removed from Almenu script
+Updated CEO method, added new features to Cayo Perico Heist Editor
 
 
 
@@ -32,22 +32,23 @@ Casino Pacino was removed from Almenu script
 
 Use agreement：
 
-When editing the Script, please indicate the authors
+1)When editing the script, indicate the authors
+
+2)You agree to use the script according to the instructions
+
+3)If you use the script not according to the instructions, the author is not responsible for your account
 
 # Instructions for AlMenu
 ![image](https://github.com/Alestarov/YimMenu-lua-script-Alestarov_Menu/assets/108485130/3fe3db2c-592b-4fbb-9209-e9d141ee134f)
 
 
-![image](https://github.com/Alestarov/YimMenu-lua-script-Alestarov_Menu/assets/108485130/5780416d-1af6-4c0f-bb20-4f7b45c49348)
+![image](https://github.com/Alestarov/Almenu/assets/108485130/3cc25428-a7fe-4abf-aba4-31f8b99aa067)
+
 
 
 ## Almenu Interface
 
-![image](https://github.com/Alestarov/YimMenu-lua-script-Alestarov_Menu/assets/108485130/e7224602-f270-4406-812f-6dce1ab7f721)
-
-## Misc Interface
-
-![image](https://github.com/Alestarov/YimMenu-lua-script-Alestarov_Menu/assets/108485130/f17574ac-d1ce-4d89-b579-b86a7b838d33)
+![image](https://github.com/Alestarov/Almenu/assets/108485130/31e2df49-f300-4a9a-ac3f-98a3e7f14d24)
 
 
 ## Teleport Interface
@@ -59,7 +60,8 @@ When editing the Script, please indicate the authors
 
 (Computers Management Menu)
 
-![image](https://github.com/Alestarov/YimMenu-lua-script-Alestarov_Menu/assets/108485130/20e60b05-9e08-42d4-aaaa-561102816d37)
+![image](https://github.com/Alestarov/Almenu/assets/108485130/5854e37c-9488-4ddb-b616-ec01797a2a56)
+
 
 ## Money Interface
 
@@ -67,7 +69,9 @@ When editing the Script, please indicate the authors
 
  CEO
  
-![image](https://github.com/Alestarov/YimMenu-lua-script-Alestarov_Menu/assets/108485130/f51b692b-8dc6-4e97-9f38-5b43360345a4)
+![image](https://github.com/Alestarov/Almenu/assets/108485130/b2cbbcf1-ef20-485d-9e61-1c617b9117bc)
+
+
 
  Casino
  
@@ -83,7 +87,8 @@ When editing the Script, please indicate the authors
 
 Cayo Perico Heist
 
-![image](https://github.com/Alestarov/YimMenu-lua-script-Alestarov_Menu/assets/108485130/927c23a7-c4d9-43d3-b1b0-fdecd7bf2545)
+![image](https://github.com/Alestarov/Almenu/assets/108485130/80abd0e6-6fc5-4ec5-a945-4488069e5fdd)
+
 
 Fleeca Heist
 
@@ -127,7 +132,7 @@ Profile on GitHub:
 
 https://github.com/xiaoxiao921
 ## 👑 SLON 👑
-(The code from the script ''YimCeo v0.3 by Slon_.lua'' was implemented)
+(The code from the script ''YimCeo v0.5 by Slon_.lua'' was implemented)
 
 Script on unknowncheats:
 
