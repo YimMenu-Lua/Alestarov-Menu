@@ -1,5 +1,5 @@
--- Game version: 2944
--- Online version: 1.67
+-- Game version: 3095
+-- Online version: 1.68
 --
 --
 --Please also make sure to download the file published by the official GitHub user Alestarov or on youtube channel Alestarov_. Any other method may be a malicious script.
@@ -12,11 +12,11 @@
 --
 --
 ----------------------------------------------------------
-Almenu = gui.get_tab("Al_Menu v2.1b 1.67")
+Almenu = gui.get_tab("Al_Menu v3 1.68")
 
-gui.show_message("Alestarov_Menu_V2.1b_1.67","is Successfully launched!")
+gui.show_message("Alestarov_Menu_V3b_1.68","is Successfully launched!")
 
-	Almenu:add_text("         Alestarov_Menu_V2.1b_1.67 ")
+	Almenu:add_text("         Alestarov_Menu_V3_1.68 ")
 ------------------------------------
 
 function run_script(name) --start script thread
@@ -46,27 +46,7 @@ function DELETE_OBJECT_BY_HASH(hash)
 end
 ------------------------------------
 
-AlmenuMisc = Almenu:add_tab("Misc")
 
-----------------------------------------------------------
-
-AlmenuS = AlmenuMisc:add_tab("Snow")
-
-
-
-
-
-
-
-
-AlmenuS:add_button("Snow On", function ()
-           globals.set_int(262145 + 4752, 1)
-end)
-
-
-AlmenuS:add_button("Snow Off", function ()
-           globals.set_int(262145 + 4752, 0)
-end)
 
 AlmenuT = Almenu:add_tab("Teleport")
 
@@ -189,7 +169,7 @@ AlmenuH = Almenu:add_tab("Heist Editor")
 ---------------
 CayoH = AlmenuH:add_tab("Cayo Perico Heist")
 
-CayoH:add_button("Setup Panther + Hard Mode", function()
+CayoH:add_button("Setup Panther", function()
     PlayerIndex = globals.get_int(1574918)
 	if PlayerIndex == 0 then
 		mpx = "MP0_"
@@ -216,7 +196,7 @@ CayoH:add_button("Setup Panther + Hard Mode", function()
                 STATS.STAT_SET_INT(joaat(mpx .. "H4LOOT_GOLD_I"), 0, true)
 		STATS.STAT_SET_INT(joaat(mpx .. "H4LOOT_GOLD_C"), 0, true)
                 STATS.STAT_SET_INT(joaat(mpx .. "H4LOOT_PAINT"), -1, true)
-                STATS.STAT_SET_INT(joaat(mpx .. "H4_PROGRESS"), 131055, true)
+                STATS.STAT_SET_INT(joaat(mpx .. "H4_PROGRESS"), 126823, true)
                 STATS.STAT_SET_INT(joaat(mpx .. "H4LOOT_CASH_I_SCOPED"), 0, true)
                 STATS.STAT_SET_INT(joaat(mpx .. "H4LOOT_CASH_C_SCOPED"), 0, true)
 		STATS.STAT_SET_INT(joaat(mpx .. "H4LOOT_WEED_I_SCOPED"), 0, true)
@@ -232,6 +212,58 @@ CayoH:add_button("Setup Panther + Hard Mode", function()
                 --
                 
 end)
+
+CayoH:add_sameline()
+
+CayoH:add_button("Setup Hard", function()
+    PlayerIndex = globals.get_int(1574918)
+    if PlayerIndex == 0 then
+        mpx = "MP0_"
+    else
+        mpx = "MP1_"
+    end
+        STATS.STAT_SET_INT(joaat(mpx .. "H4_PROGRESS"), 131055, true)
+                
+                --
+                
+end)
+
+CayoH:add_sameline()
+
+CayoH:add_button("Setup Normal", function()
+    PlayerIndex = globals.get_int(1574918)
+    if PlayerIndex == 0 then
+        mpx = "MP0_"
+    else
+        mpx = "MP1_"
+    end
+        STATS.STAT_SET_INT(joaat(mpx .. "H4_PROGRESS"), 126823, true)
+                
+                --
+                
+end)
+
+--
+
+
+
+CayoH:add_button("Reset", function()
+    PlayerIndex = globals.get_int(1574918)
+    if PlayerIndex == 0 then
+        mpx = "MP0_"
+    else
+        mpx = "MP1_"
+    end
+         STATS.STAT_SET_INT(joaat(mpx .. "H4_MISSIONS"), 0, true)
+         STATS.STAT_SET_INT(joaat(mpx .. "H4_PROGRESS"), 0, true)
+         STATS.STAT_SET_INT(joaat(mpx .. "H4_PLAYTHROUGH_STATUS"), 0, true)
+         STATS.STAT_SET_INT(joaat(mpx .. "H4CNF_APPROACH"), 0, true)
+         STATS.STAT_SET_INT(joaat(mpx .. "H4CNF_BS_ENTR"), 0, true)
+         STATS.STAT_SET_INT(joaat(mpx .. "H4CNF_BS_GEN"), 0, true)       
+end)
+--
+
+CayoH:add_separator()
 
 CayoH:add_button("remove all cameras", function()
     for _, ent in pairs(entities.get_all_objects_as_handles()) do
@@ -271,6 +303,40 @@ CayoH:add_button("Removed Perico hoplites", function()
         end
     end
 end)
+
+--
+
+CayoH:add_separator()
+
+CayoH:add_button("TP at the entrance", function()
+            PED.SET_PED_COORDS_KEEP_VEHICLE(PLAYER.PLAYER_PED_ID(), 5048.157, -5821.616, -12.726)
+        end)
+
+CayoH:add_sameline()
+
+CayoH:add_button("TP in storage", function()
+            PED.SET_PED_COORDS_KEEP_VEHICLE(PLAYER.PLAYER_PED_ID(), 5007.505, -5755.067, 15.484)
+        end)
+
+CayoH:add_sameline()
+
+CayoH:add_button("TP on the way out", function()
+            PED.SET_PED_COORDS_KEEP_VEHICLE(PLAYER.PLAYER_PED_ID(), 4990.359, -5717.899, 19.880)
+        end)
+
+CayoH:add_sameline()
+
+CayoH:add_button("TP on the sea", function()
+            PED.SET_PED_COORDS_KEEP_VEHICLE(PLAYER.PLAYER_PED_ID(), 4200.177, -5625.261, -2.69)
+        end)
+--
+
+
+
+
+
+
+
 ---------------
 FleecaH = AlmenuH:add_tab("Fleeca Heist")
 
@@ -416,19 +482,7 @@ AlmenuF:add_button("Show Avengers panel", function()
     end
 end)
 
-AlmenuF:add_button("Show Arcad computer (Work only in Arcad club or invite session)", function()
-    local playerIndex = globals.get_int(1574918)
-    if globals.get_int(1895156+playerIndex*609+10+429+1) == 0 then
-        run_script("apparcadebusiness")
-    else
-        if globals.get_int(1895156+playerIndex*609+10+429+1) == 1 then
-            run_script("apparcadebusiness")
-        else
-                gui.show_message("Don't forget to register as CEO/Leader")
-                run_script("apparcadebusiness")
-        end
-    end
-end)
+
 
 
 
@@ -437,58 +491,70 @@ end)
 
 
 AlmenuM:add_text("Here are the best and safest ways to cheat money in GTA 5 online.")
-AlmenuM:add_text("BUT DO NOT GET A LOT OF MONEY, AND USE THE ''STAT EDITOR' SECTION FOR ACCOUNT SAFETY!!!")
+AlmenuM:add_text("BUT DO NOT GET A LOT OF MONEY, AND USE THE ''STAT EDITOR'' SECTION FOR ACCOUNT SAFETY!!!")
 AlmenuM:add_text("Make money in moderation!")
 ult = AlmenuM:add_tab("CEO")
 
 Howtou = ult:add_tab("How to use CEO")
 
-Howtou:add_text("For the buy Mission:")
-Howtou:add_text("1) Click ''Show computer'' and select ''CEO''")
-Howtou:add_text("2) select ur warhouse and start the 1 Crate Mission for 2k$")
-Howtou:add_text("3) wait 1 second -> now your warehouse is full.")
+Howtou:add_text("How the buy Mission:") 
+Howtou:add_text("1)Click ''Enable YimCeo''")
+Howtou:add_text("2) Click ''Show computer'' and select ''CEO''")
+Howtou:add_text("3) select ur warhouse and start the 1 Crate Mission for 2k$")
+Howtou:add_text("4) wait 1 second -> now your warehouse is full.")
+Howtou:add_text("5)Clear statistics by selecting ''STAT EDITOR''")
 
 Howtou:add_separator()
 
 Howtou:add_text("How to get money")
-Howtou:add_text(" Click ''Show computer'' and select ''CEO'', click ''Sell Cargo'' and wait")
-Howtou:add_text("Click ''CEO'' as many times as you need to make money (1 click = 6 m dollars)")
-Howtou:add_text("Disable it and everything is normal again")
+Howtou:add_text("1)Click ''Enable YimCeo''")
+Howtou:add_text("2)Select the required amount of funds (from 10k to 6m)")
+Howtou:add_text("3)Click ''Show computer'' and select ''CEO'', click ''Sell Cargo'' and wait")
+Howtou:add_text("4)Clear statistics by selecting ''STAT EDITOR''")
 
 
 
+
+
+cratevalue = 0
+ult:add_imgui(function()
+    cratevalue, used = ImGui.DragInt("Crate Value", cratevalue, 10000, 0, 6000000)
+    if used then
+        globals.set_int(262145+15991, cratevalue)
+    end
+end)
 checkbox = ult:add_checkbox("Enable YimCeo")
+ult:add_button("Show computer", function() SCRIPT.REQUEST_SCRIPT("apparcadebusinesshub") SYSTEM.START_NEW_SCRIPT("apparcadebusinesshub", 8344) end)
 script.register_looped("yimceoloop", function (script)
-    globals.set_int(278108, 6000000) 
-    globals.set_int(277873, 0)
-    globals.set_int(277874, 0)
+    cratevalue = globals.get_int(262145+15991)
+    globals.set_int(262145+15756, 0)
+    globals.set_int(262145+15757, 0)
     script:yield()
-   
 
     if checkbox:is_enabled() == true then
         if locals.get_int("gb_contraband_sell", 2) == 1 then
-            locals.set_int("gb_contraband_sell", 1136, 1)
-            locals.set_int("gb_contraband_sell", 596, 0)
-            locals.set_int("gb_contraband_sell", 1125, 0) 
-            locals.set_int("gb_contraband_sell", 548, 7)
+            locals.set_int("gb_contraband_sell", 543+595, 1)
+            locals.set_int("gb_contraband_sell", 543+55, 0)
+            locals.set_int("gb_contraband_sell", 543+584, 0) 
+            locals.set_int("gb_contraband_sell", 543+7, 7)
             script:sleep(500)
-            locals.set_int("gb_contraband_sell", 542, 99999)  
+            locals.set_int("gb_contraband_sell", 543+1, 99999)  
         end
         if locals.get_int("appsecuroserv", 2) == 1 then
             script:sleep(500)
-            locals.set_int("appsecuroserv", 737, 1)
+            locals.set_int("appsecuroserv", 740, 1)
             script:sleep(200)
-            locals.set_int("appsecuroserv", 738, 1)
+            locals.set_int("appsecuroserv", 739, 1)
             script:sleep(200)
-            locals.set_int("appsecuroserv", 556, 3012)
+            locals.set_int("appsecuroserv", 558, 3012)
             script:sleep(1000)
         end
         if locals.get_int("gb_contraband_buy", 2) == 1 then
-            locals.set_int("gb_contraband_buy", 604, 1)
-            locals.set_int("gb_contraband_buy", 600, 111)
-            locals.set_int("gb_contraband_buy", 790, 6)
-            locals.set_int("gb_contraband_buy", 791, 4)
-            gui.show_message("Storage is now full!")
+            locals.set_int("gb_contraband_buy", 601+5, 1)
+            locals.set_int("gb_contraband_buy", 601+1, 111)
+            locals.set_int("gb_contraband_buy", 601+191, 6)
+            locals.set_int("gb_contraband_buy", 601+192, 4)
+            gui.show_message("Ur Warehouse is now full!")
         end
         if locals.get_int("gb_contraband_sell", 2) ~= 1 then  
             script:sleep(500)
@@ -502,19 +568,8 @@ script.register_looped("yimceoloop", function (script)
     script:sleep(500)
 end)
 
-ult:add_button("Show computer", function()
-    local playerIndex = globals.get_int(1574918) --疑似与MPPLY_LAST_MP_CHAR相等
-    if globals.get_int(1895156+playerIndex*609+10+429+1) == 0 then
-        run_script("apparcadebusinesshub")
-    else
-        if globals.get_int(1895156+playerIndex*609+10+429+1) == 1 then
-            run_script("apparcadebusinesshub")
-        else
-                gui.show_message("Don't forget to register as CEO/Leader")
-                run_script("apparcadebusinesshub")
-        end
-    end
-end)
+--
+
 
 Casino = AlmenuM:add_tab("Casino")
 
@@ -551,10 +606,10 @@ AlmenuS:add_button("Reset 1 player", function()
         STATS.STAT_SET_INT(joaat("MPPLY_TOTAL_SVC"), 0, true)
         STATS.STAT_SET_INT(joaat("MP0_MONEY_EARN_BETTING"), 0, true)
         STATS.STAT_SET_INT(joaat("MP0_MONEY_EARN_JOBS"), 0, true)
-        STATS.STAT_SET_INT(joaat("MP0_MOEARN_SHARED"), 0, true)
+        STATS.STAT_SET_INT(joaat("MP0_MONEY_EARN_SHARED"), 0, true)
+        STATS.STAT_SET_INT(joaat("MP0_MONEY_SPENT_SHARED"), 0, true)
         STATS.STAT_SET_INT(joaat("MP0_MONEY_EARN_JOBSHARED"), 0, true)
-        STATS.STAT_SET_INT(joaat("MP0_MONEY_NEY_EARN_SELLING_VEH"), 0, true)
-        STATS.STAT_SET_INT(joaat("MP0_MONEY_EARN_BETTING"), 0, true)
+        STATS.STAT_SET_INT(joaat("MP0_MONEY_EARN_SELLING_VEH"), 0, true)
         STATS.STAT_SET_INT(joaat("MP0_MONEY_SPENT_WEAPON_ARMOR"), 0, true)
         STATS.STAT_SET_INT(joaat("MP0_MONEY_SPENT_VEH_MAINTENANCE"), 0, true)
         STATS.STAT_SET_INT(joaat("MP0_MONEY_SPENT_STYLE_ENT"), 0, true)
@@ -564,8 +619,20 @@ AlmenuS:add_button("Reset 1 player", function()
         STATS.STAT_SET_INT(joaat("MP0_MONEY_EARN_VEHICLE_EXPORT"), 0, true)
         STATS.STAT_SET_INT(joaat("MP0_MONEY_SPENT_VEHICLE_EXPORT"), 0, true)
         STATS.STAT_SET_INT(joaat("MP0_MONEY_EARN_CLUB_DANCING"), 0, true)
+        STATS.STAT_SET_INT(joaat("MP0_CASINO_CHIPS_WON_GD"), 0, true)
+        STATS.STAT_SET_INT(joaat("MP0_CASINO_CHIPS_WONTIM"), 0, true)
+        STATS.STAT_SET_INT(joaat("MP0_CASINO_GMBLNG_GD"), 0, true)
+        STATS.STAT_SET_INT(joaat("MP0_CASINO_BAN_TIME"), 0, true)
+        STATS.STAT_SET_INT(joaat("MP0_CASINO_CHIPS_PURTIM"), 0, true)
+        STATS.STAT_SET_INT(joaat("MP0_CASINO_CHIPS_PUR_GD"), 0, true)
 	end)
 end)
+
+
+
+
+
+
 
 AlmenuS:add_button("Reset 2 player", function()
     gui.show_message("Player 2 Stats Reset","Change session to apply changes")
@@ -574,10 +641,10 @@ AlmenuS:add_button("Reset 2 player", function()
         STATS.STAT_SET_INT(joaat("MPPLY_TOTAL_SVC"), 0, true)
         STATS.STAT_SET_INT(joaat("MP1_MONEY_EARN_BETTING"), 0, true)
         STATS.STAT_SET_INT(joaat("MP1_MONEY_EARN_JOBS"), 0, true)
-        STATS.STAT_SET_INT(joaat("MP1_MOEARN_SHARED"), 0, true)
+        STATS.STAT_SET_INT(joaat("MP1_MONEY_EARN_SHARED"), 0, true)
+        STATS.STAT_SET_INT(joaat("MP1_MONEY_SPENT_SHARED"), 0, true)
         STATS.STAT_SET_INT(joaat("MP1_MONEY_EARN_JOBSHARED"), 0, true)
-        STATS.STAT_SET_INT(joaat("MP1_MONEY_NEY_EARN_SELLING_VEH"), 0, true)
-        STATS.STAT_SET_INT(joaat("MP1_MONEY_EARN_BETTING"), 0, true)
+        STATS.STAT_SET_INT(joaat("MP1_MONEY_EARN_SELLING_VEH"), 0, true)
         STATS.STAT_SET_INT(joaat("MP1_MONEY_SPENT_WEAPON_ARMOR"), 0, true)
         STATS.STAT_SET_INT(joaat("MP1_MONEY_SPENT_VEH_MAINTENANCE"), 0, true)
         STATS.STAT_SET_INT(joaat("MP1_MONEY_SPENT_STYLE_ENT"), 0, true)
@@ -587,6 +654,12 @@ AlmenuS:add_button("Reset 2 player", function()
         STATS.STAT_SET_INT(joaat("MP1_MONEY_EARN_VEHICLE_EXPORT"), 0, true)
         STATS.STAT_SET_INT(joaat("MP1_MONEY_SPENT_VEHICLE_EXPORT"), 0, true)
         STATS.STAT_SET_INT(joaat("MP1_MONEY_EARN_CLUB_DANCING"), 0, true)
+        STATS.STAT_SET_INT(joaat("MP1_CASINO_CHIPS_WON_GD"), 0, true)
+        STATS.STAT_SET_INT(joaat("MP1_CASINO_CHIPS_WONTIM"), 0, true)
+        STATS.STAT_SET_INT(joaat("MP1_CASINO_GMBLNG_GD"), 0, true)
+        STATS.STAT_SET_INT(joaat("MP1_CASINO_BAN_TIME"), 0, true)
+        STATS.STAT_SET_INT(joaat("MP1_CASINO_CHIPS_PURTIM"), 0, true)
+        STATS.STAT_SET_INT(joaat("MP1_CASINO_CHIPS_PUR_GD"), 0, true)
 	end)
 end)
 
@@ -614,6 +687,6 @@ xiaoxiao921:add_text("Profile on GitHub:")
 xiaoxiao921:add_text("https://github.com/xiaoxiao921")
 
 SLON = AlmenuCredits:add_tab("SLON")
-SLON:add_text("The code from the script ''YimCeo v0.3 by Slon_.lua'' was implemented")
+SLON:add_text("The code from the script ''YimCeo v0.5 by Slon.lua'' was implemented")
 SLON:add_text("Script on unknowncheats.me:")
 SLON:add_text("https://www.unknowncheats.me/forum/grand-theft-auto-v/591335-yimceo-ceo-crates-method-yimmenu.html")
