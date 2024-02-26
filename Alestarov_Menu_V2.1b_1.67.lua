@@ -106,32 +106,48 @@ local NightclubPropertyInfo = {
 }
 
 -- Business / Other Online Work Stuff [[update]]
+
+
+local constants = {
+    PlayerIndex = 1574925,
+    baseAddress = 1895156,
+    offset = 609,
+    constantSum = 10 + 429 + 1
+}
+
+local function getPlayerIndex() --return 0 or 1
+    return globals.get_int(constants.PlayerIndex) --joaat("MPPLY_LAST_MP_CHAR") | old = 1574918
+end
+
+local function verifyPlayerIndex(playerIndex)
+    local index = globals.get_int(constants.baseAddress + playerIndex * constants.offset + constants.constantSum)
+    return index == 0 or index == 1
+end
+
+local function convertedToCEO(playerIndex)
+    return globals.set_int(constants.baseAddress+ playerIndex * constants.offset + constants.constantSum ,0)
+end
+
+local function mpx()
+    return getPlayerIndex() == 0 and "MP0_" or "MP1_"
+end
+
+
 local function GetOnlineWorkOffset()
     -- GLOBAL_PLAYER_STAT
-        local playerid = globals.get_int(1574918) --疑似与MPPLY_LAST_MP_CHAR相等
+        local playerid = globals.get_int(constants.PlayerIndex) --疑似与MPPLY_LAST_MP_CHAR相等
     return (1853988 + 1 + (playerid * 867) + 267)
 end
-local function GetNightClubHubOffset()
-    return (GetOnlineWorkOffset() + 310)
-end
+
+
 local function GetNightClubOffset()
     return (GetOnlineWorkOffset() + 354) -- CLUB_OWNER_X
 end
 
-local function GetWarehouseOffset()
-    return (GetOnlineWorkOffset() + 116) + 1
-end
-
-local function GetMCBusinessOffset()
-    return (GetOnlineWorkOffset() + 193) + 1
-end
 local function GetNightClubPropertyID()
     return globals.get_int(GetNightClubOffset())
 end
 
-local function IsPlayerInNightclub()
-    return (GetPlayerPropertyID() > 101) and (GetPlayerPropertyID() < 112)
-end
 
 function tpnc() --传送到夜总会
     local property = GetNightClubPropertyID()
@@ -170,96 +186,59 @@ AlmenuH = Almenu:add_tab("Heist Editor")
 CayoH = AlmenuH:add_tab("Cayo Perico Heist")
 
 CayoH:add_button("Setup Panther", function()
-    PlayerIndex = globals.get_int(1574918)
-	if PlayerIndex == 0 then
-		mpx = "MP0_"
-	else
-		mpx = "MP1_"
-	end
-		STATS.STAT_SET_INT(joaat(mpx .. "H4CNF_BS_GEN"), 131071, true)
-                STATS.STAT_SET_INT(joaat(mpx .. "H4CNF_BS_ENTR"), 63, true)
-                STATS.STAT_SET_INT(joaat(mpx .. "H4CNF_BS_ABIL"), 63, true)
-                STATS.STAT_SET_INT(joaat(mpx .. "H4CNF_WEAPONS"), 5, true)
-		STATS.STAT_SET_INT(joaat(mpx .. "H4CNF_WEP_DISRP"), 3, true)
-                STATS.STAT_SET_INT(joaat(mpx .. "H4CNF_ARM_DISRP"), 3, true)
-                STATS.STAT_SET_INT(joaat(mpx .. "H4CNF_HEL_DISRP"), 3, true)
-                STATS.STAT_SET_INT(joaat(mpx .. "H4CNF_TARGET"), 5, true)
-		STATS.STAT_SET_INT(joaat(mpx .. "H4CNF_TROJAN"), 2, true)
-                STATS.STAT_SET_INT(joaat(mpx .. "H4CNF_APPROACH"), -1, true)
-                STATS.STAT_SET_INT(joaat(mpx .. "H4LOOT_CASH_I"), 0, true)
-                STATS.STAT_SET_INT(joaat(mpx .. "H4LOOT_CASH_C"), 0, true)
-		STATS.STAT_SET_INT(joaat(mpx .. "H4LOOT_WEED_I"), 0, true)
-                STATS.STAT_SET_INT(joaat(mpx .. "H4LOOT_WEED_C"), 0, true)
-                STATS.STAT_SET_INT(joaat(mpx .. "H4LOOT_COKE_I"), 0, true)
-                STATS.STAT_SET_INT(joaat(mpx .. "H4LOOT_COKE_C"), 0, true)
-                STATS.STAT_SET_INT(joaat(mpx .. "H4LOOT_CASH_I"), 0, true)
-                STATS.STAT_SET_INT(joaat(mpx .. "H4LOOT_GOLD_I"), 0, true)
-		STATS.STAT_SET_INT(joaat(mpx .. "H4LOOT_GOLD_C"), 0, true)
-                STATS.STAT_SET_INT(joaat(mpx .. "H4LOOT_PAINT"), -1, true)
-                STATS.STAT_SET_INT(joaat(mpx .. "H4_PROGRESS"), 126823, true)
-                STATS.STAT_SET_INT(joaat(mpx .. "H4LOOT_CASH_I_SCOPED"), 0, true)
-                STATS.STAT_SET_INT(joaat(mpx .. "H4LOOT_CASH_C_SCOPED"), 0, true)
-		STATS.STAT_SET_INT(joaat(mpx .. "H4LOOT_WEED_I_SCOPED"), 0, true)
-                STATS.STAT_SET_INT(joaat(mpx .. "H4LOOT_WEED_C_SCOPED"), 0, true)
-                STATS.STAT_SET_INT(joaat(mpx .. "H4LOOT_COKE_I_SCOPED"), 0, true)
-                STATS.STAT_SET_INT(joaat(mpx .. "H4LOOT_COKE_C_SCOPED"), 0, true)
-                STATS.STAT_SET_INT(joaat(mpx .. "H4LOOT_GOLD_I_SCOPED"), 0, true)
-                STATS.STAT_SET_INT(joaat(mpx .. "H4LOOT_GOLD_C_SCOPED"), 0, true)
-		STATS.STAT_SET_INT(joaat(mpx .. "H4LOOT_PAINT_SCOPED"), -1, true)
-                STATS.STAT_SET_INT(joaat(mpx .. "H4_MISSIONS"), 65535, true)
-                STATS.STAT_SET_INT(joaat(mpx .. "H4_PLAYTHROUGH_STATUS"), 32, true)
-                
-                --
-                
+    STATS.STAT_SET_INT(joaat(mpx() .. "H4CNF_BS_GEN"), 131071, true)
+    STATS.STAT_SET_INT(joaat(mpx() .. "H4CNF_BS_ENTR"), 63, true)
+    STATS.STAT_SET_INT(joaat(mpx() .. "H4CNF_BS_ABIL"), 63, true)
+    STATS.STAT_SET_INT(joaat(mpx() .. "H4CNF_WEAPONS"), 5, true)
+    STATS.STAT_SET_INT(joaat(mpx() .. "H4CNF_WEP_DISRP"), 3, true)
+    STATS.STAT_SET_INT(joaat(mpx() .. "H4CNF_ARM_DISRP"), 3, true)
+    STATS.STAT_SET_INT(joaat(mpx() .. "H4CNF_HEL_DISRP"), 3, true)
+    STATS.STAT_SET_INT(joaat(mpx() .. "H4CNF_TARGET"), 5, true)
+    STATS.STAT_SET_INT(joaat(mpx() .. "H4CNF_TROJAN"), 2, true)
+    STATS.STAT_SET_INT(joaat(mpx() .. "H4CNF_APPROACH"), -1, true)
+    STATS.STAT_SET_INT(joaat(mpx() .. "H4LOOT_CASH_I"), 0, true)
+    STATS.STAT_SET_INT(joaat(mpx() .. "H4LOOT_CASH_C"), 0, true)
+    STATS.STAT_SET_INT(joaat(mpx() .. "H4LOOT_WEED_I"), 0, true)
+    STATS.STAT_SET_INT(joaat(mpx() .. "H4LOOT_WEED_C"), 0, true)
+    STATS.STAT_SET_INT(joaat(mpx() .. "H4LOOT_COKE_I"), 0, true)
+    STATS.STAT_SET_INT(joaat(mpx() .. "H4LOOT_COKE_C"), 0, true)
+    STATS.STAT_SET_INT(joaat(mpx() .. "H4LOOT_CASH_I"), 0, true)
+    STATS.STAT_SET_INT(joaat(mpx() .. "H4LOOT_GOLD_I"), 0, true)
+    STATS.STAT_SET_INT(joaat(mpx() .. "H4LOOT_GOLD_C"), 0, true)
+    STATS.STAT_SET_INT(joaat(mpx() .. "H4LOOT_PAINT"), -1, true)
+    STATS.STAT_SET_INT(joaat(mpx() .. "H4_PROGRESS"), 126823, true)
+    STATS.STAT_SET_INT(joaat(mpx() .. "H4LOOT_CASH_I_SCOPED"), 0, true)
+    STATS.STAT_SET_INT(joaat(mpx() .. "H4LOOT_CASH_C_SCOPED"), 0, true)
+    STATS.STAT_SET_INT(joaat(mpx() .. "H4LOOT_WEED_I_SCOPED"), 0, true)
+    STATS.STAT_SET_INT(joaat(mpx() .. "H4LOOT_WEED_C_SCOPED"), 0, true)
+    STATS.STAT_SET_INT(joaat(mpx() .. "H4LOOT_COKE_I_SCOPED"), 0, true)
+    STATS.STAT_SET_INT(joaat(mpx() .. "H4LOOT_COKE_C_SCOPED"), 0, true)
+    STATS.STAT_SET_INT(joaat(mpx() .. "H4LOOT_GOLD_I_SCOPED"), 0, true)
+    STATS.STAT_SET_INT(joaat(mpx() .. "H4LOOT_GOLD_C_SCOPED"), 0, true)
+    STATS.STAT_SET_INT(joaat(mpx() .. "H4LOOT_PAINT_SCOPED"), -1, true)
+    STATS.STAT_SET_INT(joaat(mpx() .. "H4_MISSIONS"), 65535, true)
+    STATS.STAT_SET_INT(joaat(mpx() .. "H4_PLAYTHROUGH_STATUS"), 32, true)
 end)
 
 CayoH:add_sameline()
 
 CayoH:add_button("Setup Hard", function()
-    PlayerIndex = globals.get_int(1574918)
-    if PlayerIndex == 0 then
-        mpx = "MP0_"
-    else
-        mpx = "MP1_"
-    end
-        STATS.STAT_SET_INT(joaat(mpx .. "H4_PROGRESS"), 131055, true)
-                
-                --
-                
+    STATS.STAT_SET_INT(joaat(mpx() .. "H4_PROGRESS"), 131055, true)            
 end)
 
 CayoH:add_sameline()
 
 CayoH:add_button("Setup Normal", function()
-    PlayerIndex = globals.get_int(1574918)
-    if PlayerIndex == 0 then
-        mpx = "MP0_"
-    else
-        mpx = "MP1_"
-    end
-        STATS.STAT_SET_INT(joaat(mpx .. "H4_PROGRESS"), 126823, true)
-                
-                --
-                
+    STATS.STAT_SET_INT(joaat(mpx() .. "H4_PROGRESS"), 126823, true)         
 end)
 
---
-
-
-
 CayoH:add_button("Reset", function()
-    PlayerIndex = globals.get_int(1574918)
-    if PlayerIndex == 0 then
-        mpx = "MP0_"
-    else
-        mpx = "MP1_"
-    end
-         STATS.STAT_SET_INT(joaat(mpx .. "H4_MISSIONS"), 0, true)
-         STATS.STAT_SET_INT(joaat(mpx .. "H4_PROGRESS"), 0, true)
-         STATS.STAT_SET_INT(joaat(mpx .. "H4_PLAYTHROUGH_STATUS"), 0, true)
-         STATS.STAT_SET_INT(joaat(mpx .. "H4CNF_APPROACH"), 0, true)
-         STATS.STAT_SET_INT(joaat(mpx .. "H4CNF_BS_ENTR"), 0, true)
-         STATS.STAT_SET_INT(joaat(mpx .. "H4CNF_BS_GEN"), 0, true)       
+    STATS.STAT_SET_INT(joaat(mpx() .. "H4_MISSIONS"), 0, true)
+    STATS.STAT_SET_INT(joaat(mpx() .. "H4_PROGRESS"), 0, true)
+    STATS.STAT_SET_INT(joaat(mpx() .. "H4_PLAYTHROUGH_STATUS"), 0, true)
+    STATS.STAT_SET_INT(joaat(mpx() .. "H4CNF_APPROACH"), 0, true)
+    STATS.STAT_SET_INT(joaat(mpx() .. "H4CNF_BS_ENTR"), 0, true)
+    STATS.STAT_SET_INT(joaat(mpx() .. "H4CNF_BS_GEN"), 0, true)       
 end)
 --
 
@@ -332,42 +311,22 @@ CayoH:add_button("TP on the sea", function()
 --
 
 
-
-
-
-
-
 ---------------
 FleecaH = AlmenuH:add_tab("Fleeca Heist")
 
 FleecaH:add_button("Skip Prep", function()
-	PlayerIndex = globals.get_int(1574907)
-	if PlayerIndex == 0 then
-		mpx = "MP0_"
-	else
-		mpx = "MP1_"
-	end
-		STATS.STAT_SET_INT(joaat(mpx .. "HEIST_PLANNING_STAGE"), -1, true)
+		STATS.STAT_SET_INT(joaat(mpx() .. "HEIST_PLANNING_STAGE"), -1, true)
 end)
 
 FleecaH:add_sameline()
 
 FleecaH:add_button("Reset Prep", function()
-	PlayerIndex = globals.get_int(1574907)
-	if PlayerIndex == 0 then
-		mpx = "MP0_"
-	else
-		mpx = "MP1_"
-	end
-		STATS.STAT_SET_INT(joaat(mpx .. "HEIST_PLANNING_STAGE"), 0, true)
+		STATS.STAT_SET_INT(joaat(mpx() .. "HEIST_PLANNING_STAGE"), 0, true)
 end)
 ---------------
 
 
 ---------------
-
-
-
 
 
 
@@ -378,115 +337,62 @@ AlmenuF:add_text("Works properly in session by invitations. in an open session d
 
 
 AlmenuF:add_button("Show master control computer", function()
-    local playerIndex = globals.get_int(1574918)
-    if globals.get_int(1895156+playerIndex*609+10+429+1) == 0 then
+    if verifyPlayerIndex(getPlayerIndex()) then
         run_script("apparcadebusinesshub")
     else
-        if globals.get_int(1895156+playerIndex*609+10+429+1) == 1 then
-            run_script("apparcadebusinesshub")
-        else
-                gui.show_message("Don't forget to register as CEO/Leader")
-                run_script("apparcadebusinesshub")
-        end
+        gui.show_message("Don't forget to register as CEO/Leader","It may also be a script detection error, known problem, no feedback required")
     end
 end)
 
 
-
-
-
-
 AlmenuF:add_button("Show Nightclub computer", function()
-    local playerIndex = globals.get_int(1574918)
-    if globals.get_int(1895156+playerIndex*609+10+429+1) == 0 then
+    if verifyPlayerIndex(getPlayerIndex()) then
         run_script("appbusinesshub")
     else
-        if globals.get_int(1895156+playerIndex*609+10+429+1) == 1 then
-            run_script("appbusinesshub")
-        else
-                gui.show_message("Don't forget to register as CEO/Leader")
-                run_script("appbusinesshub")
-        end
+        gui.show_message("Don't forget to register as CEO/Leader","It may also be a script detection error, known problem, no feedback required")
     end
 end)
 
 AlmenuF:add_button("Show office computer", function()
-    local playerIndex = globals.get_int(1574918)
-    if globals.get_int(1895156+playerIndex*609+10+429+1) == 0 then
+    if verifyPlayerIndex(getPlayerIndex()) then
+        convertedToCEO(getPlayerIndex())
         run_script("appfixersecurity")
     else
-        if globals.get_int(1895156+playerIndex*609+10+429+1) == 1 then
-            globals.set_int(1895156+playerIndex*609+10+429+1,0)
-            gui.show_message("prompt","Converted to CEO")
-            run_script("appfixersecurity")
-            else
-            gui.show_message("Don't forget to register as CEO/Leader","It may also be a script detection error, known problem, no feedback required")
-            run_script("appfixersecurity")
-        end
+        gui.show_message("Don't forget to register as CEO/Leader","It may also be a script detection error, known problem, no feedback required")
     end
 end)
 
 AlmenuF:add_button("show bunker computer", function()
-    local playerIndex = globals.get_int(1574918)
-    if globals.get_int(1895156+playerIndex*609+10+429+1) == 0 then
+    if verifyPlayerIndex(getPlayerIndex()) then
         run_script("appbunkerbusiness")
     else
-        if globals.get_int(1895156+playerIndex*609+10+429+1) == 1 then
-            run_script("appbunkerbusiness")
-            else
-                gui.show_message("Don't forget to register as CEO/Leader","It may also be a script detection error, known problem, no feedback required")
-                run_script("appbunkerbusiness")
-            end
+        gui.show_message("Don't forget to register as CEO/Leader","It may also be a script detection error, known problem, no feedback required")
     end
 end)
 
 AlmenuF:add_button("show hangar computer", function()
-    local playerIndex = globals.get_int(1574918)
-    if globals.get_int(1895156+playerIndex*609+10+429+1) == 0 then
+    if verifyPlayerIndex(getPlayerIndex()) then
         run_script("appsmuggler")
     else
-        if globals.get_int(1895156+playerIndex*609+10+429+1) == 1 then
-            run_script("appsmuggler")
-            else
-                gui.show_message("Don't forget to register as CEO/Leader","It may also be a script detection error, known problem, no feedback required")
-                run_script("appsmuggler")
-            end
+        gui.show_message("Don't forget to register as CEO/Leader","It may also be a script detection error, known problem, no feedback required")
     end
 end)
 
 AlmenuF:add_button("Show the Terrorist Dashboard", function()
-    local playerIndex = globals.get_int(1574918)
-    if globals.get_int(1895156+playerIndex*609+10+429+1) == 0 then
+    if verifyPlayerIndex(getPlayerIndex()) then
         run_script("apphackertruck")
     else
-        if globals.get_int(1895156+playerIndex*609+10+429+1) == 1 then
-            run_script("apphackertruck")
-        else
-            gui.show_message("Don't forget to register as CEO/Leader","It may also be a script detection error, known problem, no feedback required")
-            run_script("apphackertruck")
-        end
+        gui.show_message("Don't forget to register as CEO/Leader","It may also be a script detection error, known problem, no feedback required")
     end
 end)
 
 AlmenuF:add_button("Show Avengers panel", function()
-    local playerIndex = globals.get_int(1574918)
-    if globals.get_int(1895156+playerIndex*609+10+429+1) == 0 then
+    if verifyPlayerIndex(getPlayerIndex()) then
         run_script("appAvengerOperations")
     else
-        if globals.get_int(1895156+playerIndex*609+10+429+1) == 1 then
-            run_script("appAvengerOperations")
-        else
-            gui.show_message("Don't forget to register as CEO/Leader","It may also be a script detection error, known problem, no feedback required")
-            run_script("appAvengerOperations")
-        end
+        gui.show_message("Don't forget to register as CEO/Leader","It may also be a script detection error, known problem, no feedback required")
     end
 end)
-
-
-
-
-
-
 
 
 
@@ -511,8 +417,6 @@ Howtou:add_text("1)Click ''Enable YimCeo''")
 Howtou:add_text("2)Select the required amount of funds (from 10k to 6m)")
 Howtou:add_text("3)Click ''Show computer'' and select ''CEO'', click ''Sell Cargo'' and wait")
 Howtou:add_text("4)Clear statistics by selecting ''STAT EDITOR''")
-
-
 
 
 
@@ -590,78 +494,43 @@ end)
 
 
 
-
-
-
 AlmenuS = Almenu:add_tab("Stat Editor")
 
-AlmenuS:add_text("Use ''Reset 1'' player or ''Reset 2 player'' and change session and exit the game to apply changes")
+AlmenuS:add_text("Use 'Reset player stats' and change session and exit the game to apply changes")
 
 AlmenuS:add_separator()
 
-AlmenuS:add_button("Reset 1 player", function()
-    gui.show_message("Player 1 Stats Reset","Change session to apply changes")
+local indexPlayerMsg = getPlayerIndex() == 0 and "1" or "2"
+
+AlmenuS:add_button("Reset player stats", function()
+    gui.show_message("Player " ..  indexPlayerMsg .." Stats Reset","Change session to apply changes")
     script.run_in_fiber(function (script)
-        STATS.STAT_SET_INT(joaat("MPPLY_TOTAL_EVC"), 0, true)
-        STATS.STAT_SET_INT(joaat("MPPLY_TOTAL_SVC"), 0, true)
-        STATS.STAT_SET_INT(joaat("MP0_MONEY_EARN_BETTING"), 0, true)
-        STATS.STAT_SET_INT(joaat("MP0_MONEY_EARN_JOBS"), 0, true)
-        STATS.STAT_SET_INT(joaat("MP0_MONEY_EARN_SHARED"), 0, true)
-        STATS.STAT_SET_INT(joaat("MP0_MONEY_SPENT_SHARED"), 0, true)
-        STATS.STAT_SET_INT(joaat("MP0_MONEY_EARN_JOBSHARED"), 0, true)
-        STATS.STAT_SET_INT(joaat("MP0_MONEY_EARN_SELLING_VEH"), 0, true)
-        STATS.STAT_SET_INT(joaat("MP0_MONEY_SPENT_WEAPON_ARMOR"), 0, true)
-        STATS.STAT_SET_INT(joaat("MP0_MONEY_SPENT_VEH_MAINTENANCE"), 0, true)
-        STATS.STAT_SET_INT(joaat("MP0_MONEY_SPENT_STYLE_ENT"), 0, true)
-        STATS.STAT_SET_INT(joaat("MP0_MONEY_SPENT_PROPERTY_UTIL"), 0, true)
-        STATS.STAT_SET_INT(joaat("MP0_MONEY_SPENT_JOB_ACTIVITY"), 0, true)
-        STATS.STAT_SET_INT(joaat("MP0_MONEY_SPENT_BETTING"), 0, true)
-        STATS.STAT_SET_INT(joaat("MP0_MONEY_EARN_VEHICLE_EXPORT"), 0, true)
-        STATS.STAT_SET_INT(joaat("MP0_MONEY_SPENT_VEHICLE_EXPORT"), 0, true)
-        STATS.STAT_SET_INT(joaat("MP0_MONEY_EARN_CLUB_DANCING"), 0, true)
-        STATS.STAT_SET_INT(joaat("MP0_CASINO_CHIPS_WON_GD"), 0, true)
-        STATS.STAT_SET_INT(joaat("MP0_CASINO_CHIPS_WONTIM"), 0, true)
-        STATS.STAT_SET_INT(joaat("MP0_CASINO_GMBLNG_GD"), 0, true)
-        STATS.STAT_SET_INT(joaat("MP0_CASINO_BAN_TIME"), 0, true)
-        STATS.STAT_SET_INT(joaat("MP0_CASINO_CHIPS_PURTIM"), 0, true)
-        STATS.STAT_SET_INT(joaat("MP0_CASINO_CHIPS_PUR_GD"), 0, true)
+        STATS.STAT_SET_INT(joaat(mpx() .. "MPPLY_TOTAL_EVC"), 0, true)
+        STATS.STAT_SET_INT(joaat(mpx() .. "MPPLY_TOTAL_SVC"), 0, true)
+        STATS.STAT_SET_INT(joaat(mpx() .. "MP0_MONEY_EARN_BETTING"), 0, true)
+        STATS.STAT_SET_INT(joaat(mpx() .. "MONEY_EARN_JOBS"), 0, true)
+        STATS.STAT_SET_INT(joaat(mpx() .. "MONEY_EARN_SHARED"), 0, true)
+        STATS.STAT_SET_INT(joaat(mpx() .. "MONEY_SPENT_SHARED"), 0, true)
+        STATS.STAT_SET_INT(joaat(mpx() .. "MONEY_EARN_JOBSHARED"), 0, true)
+        STATS.STAT_SET_INT(joaat(mpx() .. "MONEY_EARN_SELLING_VEH"), 0, true)
+        STATS.STAT_SET_INT(joaat(mpx() .. "MONEY_SPENT_WEAPON_ARMOR"), 0, true)
+        STATS.STAT_SET_INT(joaat(mpx() .. "MONEY_SPENT_VEH_MAINTENANCE"), 0, true)
+        STATS.STAT_SET_INT(joaat(mpx() .. "MONEY_SPENT_STYLE_ENT"), 0, true)
+        STATS.STAT_SET_INT(joaat(mpx() .. "MONEY_SPENT_PROPERTY_UTIL"), 0, true)
+        STATS.STAT_SET_INT(joaat(mpx() .. "MONEY_SPENT_JOB_ACTIVITY"), 0, true)
+        STATS.STAT_SET_INT(joaat(mpx() .. "MONEY_SPENT_BETTING"), 0, true)
+        STATS.STAT_SET_INT(joaat(mpx() .. "MONEY_EARN_VEHICLE_EXPORT"), 0, true)
+        STATS.STAT_SET_INT(joaat(mpx() .. "MONEY_SPENT_VEHICLE_EXPORT"), 0, true)
+        STATS.STAT_SET_INT(joaat(mpx() .. "MONEY_EARN_CLUB_DANCING"), 0, true)
+        STATS.STAT_SET_INT(joaat(mpx() .. "CASINO_CHIPS_WON_GD"), 0, true)
+        STATS.STAT_SET_INT(joaat(mpx() .. "CASINO_CHIPS_WONTIM"), 0, true)
+        STATS.STAT_SET_INT(joaat(mpx() .. "CASINO_GMBLNG_GD"), 0, true)
+        STATS.STAT_SET_INT(joaat(mpx() .. "CASINO_BAN_TIME"), 0, true)
+        STATS.STAT_SET_INT(joaat(mpx() .. "CASINO_CHIPS_PURTIM"), 0, true)
+        STATS.STAT_SET_INT(joaat(mpx() .. "CASINO_CHIPS_PUR_GD"), 0, true)
 	end)
 end)
 
-
-
-
-
-
-
-AlmenuS:add_button("Reset 2 player", function()
-    gui.show_message("Player 2 Stats Reset","Change session to apply changes")
-    script.run_in_fiber(function (script)
-        STATS.STAT_SET_INT(joaat("MPPLY_TOTAL_EVC"), 0, true)
-        STATS.STAT_SET_INT(joaat("MPPLY_TOTAL_SVC"), 0, true)
-        STATS.STAT_SET_INT(joaat("MP1_MONEY_EARN_BETTING"), 0, true)
-        STATS.STAT_SET_INT(joaat("MP1_MONEY_EARN_JOBS"), 0, true)
-        STATS.STAT_SET_INT(joaat("MP1_MONEY_EARN_SHARED"), 0, true)
-        STATS.STAT_SET_INT(joaat("MP1_MONEY_SPENT_SHARED"), 0, true)
-        STATS.STAT_SET_INT(joaat("MP1_MONEY_EARN_JOBSHARED"), 0, true)
-        STATS.STAT_SET_INT(joaat("MP1_MONEY_EARN_SELLING_VEH"), 0, true)
-        STATS.STAT_SET_INT(joaat("MP1_MONEY_SPENT_WEAPON_ARMOR"), 0, true)
-        STATS.STAT_SET_INT(joaat("MP1_MONEY_SPENT_VEH_MAINTENANCE"), 0, true)
-        STATS.STAT_SET_INT(joaat("MP1_MONEY_SPENT_STYLE_ENT"), 0, true)
-        STATS.STAT_SET_INT(joaat("MP1_MONEY_SPENT_PROPERTY_UTIL"), 0, true)
-        STATS.STAT_SET_INT(joaat("MP1_MONEY_SPENT_JOB_ACTIVITY"), 0, true)
-        STATS.STAT_SET_INT(joaat("MP1_MONEY_SPENT_BETTING"), 0, true)
-        STATS.STAT_SET_INT(joaat("MP1_MONEY_EARN_VEHICLE_EXPORT"), 0, true)
-        STATS.STAT_SET_INT(joaat("MP1_MONEY_SPENT_VEHICLE_EXPORT"), 0, true)
-        STATS.STAT_SET_INT(joaat("MP1_MONEY_EARN_CLUB_DANCING"), 0, true)
-        STATS.STAT_SET_INT(joaat("MP1_CASINO_CHIPS_WON_GD"), 0, true)
-        STATS.STAT_SET_INT(joaat("MP1_CASINO_CHIPS_WONTIM"), 0, true)
-        STATS.STAT_SET_INT(joaat("MP1_CASINO_GMBLNG_GD"), 0, true)
-        STATS.STAT_SET_INT(joaat("MP1_CASINO_BAN_TIME"), 0, true)
-        STATS.STAT_SET_INT(joaat("MP1_CASINO_CHIPS_PURTIM"), 0, true)
-        STATS.STAT_SET_INT(joaat("MP1_CASINO_CHIPS_PUR_GD"), 0, true)
-	end)
-end)
 
 AlmenuCredits = Almenu:add_tab("Credits")
 
